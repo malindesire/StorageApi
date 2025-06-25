@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36121.58 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageApi", "StorageApi\StorageApi.csproj", "{8DA3443B-B64F-4F74-96D7-67400C25B9AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8DA3443B-B64F-4F74-96D7-67400C25B9AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DA3443B-B64F-4F74-96D7-67400C25B9AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DA3443B-B64F-4F74-96D7-67400C25B9AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DA3443B-B64F-4F74-96D7-67400C25B9AB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BDC7857A-EB92-4EEF-9646-A73154C3BF20}
+	EndGlobalSection
+EndGlobal
