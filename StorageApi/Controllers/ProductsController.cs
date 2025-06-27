@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StorageApi.Data;
+using StorageApi.DTOs;
 using StorageApi.Models;
 
 namespace StorageApi.Controllers
@@ -25,7 +26,15 @@ namespace StorageApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProduct()
         {
-            return await _context.Product.ToListAsync();
+            var res = _context.Product.Select((p) => new ProductDto
+            { 
+                Id = p.Id,
+                Name = p.Name,
+                Price = p.Price,
+                Count = p.Count,
+            });
+
+            return Ok(await res.ToListAsync());
         }
 
         // GET: api/Products/5
@@ -76,8 +85,18 @@ namespace StorageApi.Controllers
         // POST: api/Products
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult<Product>> PostProduct(CreateProductDto productDto)
         {
+            var product = new Product 
+            {
+                Name = productDto.Name,
+                Price = productDto.Price,
+                Category = productDto.Category,
+                Shelf = productDto.Shelf,
+                Count = productDto.Count,
+                Description = productDto.Description
+            };
+              
             _context.Product.Add(product);
             await _context.SaveChangesAsync();
 
