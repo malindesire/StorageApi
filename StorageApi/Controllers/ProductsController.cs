@@ -60,8 +60,18 @@ namespace StorageApi.Controllers
         // PUT: api/Products/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(int id, Product product)
+        public async Task<IActionResult> PutProduct(int id, CreateProductDto productDto)
         {
+            var product = new Product 
+            {
+                Name = productDto.Name,
+                Price = productDto.Price,
+                Category = productDto.Category,
+                Shelf = productDto.Shelf,
+                Count = productDto.Count,
+                Description = productDto.Description
+            };
+
             if (id != product.Id)
             {
                 return BadRequest();
