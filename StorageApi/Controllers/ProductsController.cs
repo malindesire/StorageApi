@@ -120,7 +120,7 @@ namespace StorageApi.Controllers
         // POST: api/Products
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(CreateProductDto productDto)
+        public async Task<ActionResult<ProductDto>> PostProduct(CreateProductDto productDto)
         {
             var product = new Product 
             {
@@ -135,7 +135,7 @@ namespace StorageApi.Controllers
             _context.Product.Add(product);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProduct", new { id = product.Id }, product);
+            return CreatedAtAction("GetProduct", new { id = product.Id }, productDto);
         }
 
         // DELETE: api/Products/5
