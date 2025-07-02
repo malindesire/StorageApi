@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StorageApi.Data;
 using StorageApi.DTOs;
@@ -41,13 +36,16 @@ namespace StorageApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductDto>> GetProduct(int id)
         {
-            var product = _context.Product.Where(p => p.Id == id).Select(p => new ProductDto
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Price = p.Price,
-                Count = p.Count,
-            }).FirstOrDefaultAsync();
+            var product = _context.Product
+                .Where(p => p.Id == id)
+                .Select(p => new ProductDto
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Price = p.Price,
+                    Count = p.Count,
+                })
+                .FirstOrDefaultAsync();
 
             if (product == null)
             {
@@ -55,6 +53,27 @@ namespace StorageApi.Controllers
             }
 
             return Ok(await product);
+        }
+
+        // GET: api/products/stats
+        [HttpGet("stats")]
+        public async Task<ActionResult<ProductStatsDto>> GetStats()
+        {
+            var products = await _context.Product.ToListAsync();
+
+            if (products == null || !products.Any())
+            {
+                return NotFound("No products found.");
+            }
+
+            var productsStats = new ProductStatsDto
+            {
+                TotalProductsCount = products.Sum(p => p.Count),
+                TotalInventoryValue = products.Sum(p => p.Price * p.Count),
+                AveragePrice = (int)products.Average(p => p.Price)
+            };
+
+            return Ok(productsStats);
         }
 
         // PUT: api/Products/5
